@@ -6,7 +6,7 @@ reuben.brewer@gmail.com
 www.reubotics.com
 
 Apache 2 License
-Software Revision C, 07/18/2022
+Software Revision D, 08/29/2022
 
 Verified working on: Python 2.7, 3.8 for Windows 8.1, 10 64-bit and Raspberry Pi Buster (no Mac testing yet).
 '''
@@ -37,13 +37,6 @@ else:
     from tkinter import * #Python 3
     import tkinter.font as tkFont #Python 3
     from tkinter import ttk
-#########################################################
-
-#########################################################
-if sys.version_info[0] < 3:
-    from builtins import raw_input as input
-else:
-    from future.builtins import input as input #"sudo pip3 install future" (Python 3) AND "sudo pip install future" (Python 2)
 #########################################################
 
 #########################################################
@@ -393,7 +386,6 @@ if __name__ == '__main__':
     if USE_EntryListWithBlinking_FLAG == 1:
         try:
             EntryListWithBlinking_ReubenPython2and3ClassObject = EntryListWithBlinking_ReubenPython2and3Class(EntryListWithBlinking_ReubenPython2and3ClassObject_setup_dict)
-            time.sleep(0.25)
             EntryListWithBlinking_OPEN_FLAG = EntryListWithBlinking_ReubenPython2and3ClassObject.OBJECT_CREATED_SUCCESSFULLY_FLAG
 
         except:
@@ -439,8 +431,7 @@ if __name__ == '__main__':
     #################################################
     if USE_EntryListWithBlinking_FLAG == 1 and EntryListWithBlinking_OPEN_FLAG != 1:
         print("Failed to open EntryListWithBlinking_ReubenPython2and3Class.")
-        input("Press any key (and enter) to exit.")
-        sys.exit()
+        ExitProgram_Callback()
     #################################################
     #################################################
 
@@ -448,8 +439,7 @@ if __name__ == '__main__':
     #################################################
     if USE_MYPRINT_FLAG == 1 and MYPRINT_OPEN_FLAG != 1:
         print("Failed to open MyPrint_ReubenPython2and3ClassObject.")
-        input("Press any key (and enter) to exit.")
-        sys.exit()
+        ExitProgram_Callback()
     #################################################
     #################################################
 
@@ -475,7 +465,8 @@ if __name__ == '__main__':
             if "DataUpdateNumber" in EntryListWithBlinking_MostRecentDict and EntryListWithBlinking_MostRecentDict["DataUpdateNumber"] != EntryListWithBlinking_MostRecentDict_DataUpdateNumber_last:
                 EntryListWithBlinking_MostRecentDict_DataUpdateNumber = EntryListWithBlinking_MostRecentDict["DataUpdateNumber"]
 
-                print("DataUpdateNumber = " + str(EntryListWithBlinking_MostRecentDict_DataUpdateNumber) + ", EntryListWithBlinking_MostRecentDict: " + str(EntryListWithBlinking_MostRecentDict))
+                print("EntryListWithBlinking_MostRecentDict: " + str(EntryListWithBlinking_MostRecentDict))
+                #print("DataUpdateNumber = " + str(EntryListWithBlinking_MostRecentDict_DataUpdateNumber) + ", EntryListWithBlinking_MostRecentDict: " + str(EntryListWithBlinking_MostRecentDict))
         ###################################################
 
         ################################################### SET's
