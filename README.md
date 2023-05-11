@@ -2,7 +2,8 @@
 
 EntryListWithBlinking_ReubenPython2and3Class
 
-Custom Tkinter GUI object that displays labeled Entry objects (corresponding to variable names) so that the user can type in values (int, float, and str type). Great for changing gains on-the-fly during PID debugging. Each entry can be instructed to blink to prompt a user to enter a value if the entry is left unfilled.
+Custom Tkinter GUI object that displays labeled Entry objects (corresponding to variable names) so that the user can type in values (int, float, and str type).
+Great for changing gains on-the-fly during PID debugging. Each entry can be instructed to blink to prompt a user to enter a value if the entry is left unfilled.
 
 Reuben Brewer, Ph.D.
 
@@ -12,7 +13,7 @@ www.reubotics.com
 
 Apache 2 License
 
-Software Revision D, 08/29/2022
+Software Revision E, 05/10/2023
 
 Verified working on: 
 
@@ -34,6 +35,6 @@ EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_TestProgr
 
 EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_NestedLayers: ['future.builtins']
 
-EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_All: ['future.builtins', 'MyPrint_ReubenPython2and3Class']
+EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_All:['future.builtins', 'MyPrint_ReubenPython2and3Class']
 
 ###########################
