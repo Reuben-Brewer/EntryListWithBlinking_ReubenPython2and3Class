@@ -6,9 +6,9 @@ reuben.brewer@gmail.com
 www.reubotics.com
 
 Apache 2 License
-Software Revision G, 08/31/2024
+Software Revision I, 07/14/2025
 
-Verified working on: Python 2.7, 3.8 for Windows 8.1, 10 64-bit and Raspberry Pi Buster (no Mac testing yet).
+Verified working on: Python 3.11/3.12 for Windows 10/11 64-bit and Raspberry Pi Bookworm.
 '''
 
 __author__ = 'reuben.brewer'
@@ -26,6 +26,7 @@ import time
 import datetime
 import threading
 import collections
+import keyboard
 #########################################################
 
 #########################################################
@@ -109,7 +110,7 @@ def GUI_update_clock():
 
 ##########################################################################################################
 ##########################################################################################################
-def ExitProgram_Callback():
+def ExitProgram_Callback(OptionalArugment = 0):
     global EXIT_PROGRAM_FLAG
 
     print("ExitProgram_Callback event fired!")
@@ -155,12 +156,13 @@ def GUI_Thread():
         Tab_MyPrint = ttk.Frame(TabControlObject)
         TabControlObject.add(Tab_MyPrint, text='   MyPrint Terminal   ')
 
-        TabControlObject.pack(expand=1, fill="both")  # CANNOT MIX PACK AND GRID IN THE SAME FRAME/TAB, SO ALL .GRID'S MUST BE CONTAINED WITHIN THEIR OWN FRAME/TAB.
+        TabControlObject.grid(row=0, column=0, sticky='nsew')
 
         ############# #Set the tab header font
         TabStyle = ttk.Style()
         TabStyle.configure('TNotebook.Tab', font=('Helvetica', '12', 'bold'))
         #############
+        
         #################################################
     else:
         #################################################
@@ -234,6 +236,9 @@ if __name__ == '__main__':
 
     global USE_MyPrint_FLAG
     USE_MyPrint_FLAG = 1
+    
+    global USE_Keyboard_FLAG
+    USE_Keyboard_FLAG = 1
     #################################################
     #################################################
 
@@ -262,6 +267,9 @@ if __name__ == '__main__':
     GUI_PADY_EntryListWithBlinking = 1
     GUI_ROWSPAN_EntryListWithBlinking = 1
     GUI_COLUMNSPAN_EntryListWithBlinking = 1
+    GUI_HEIGHT_EntryListWithBlinking = 99
+    GUI_WIDTH_EntryListWithBlinking = 399
+    GUI_STICKY_EntryListWithBlinking = ""
 
     global GUI_ROW_MyPrint
     global GUI_COLUMN_MyPrint
@@ -276,6 +284,7 @@ if __name__ == '__main__':
     GUI_PADY_MyPrint = 1
     GUI_ROWSPAN_MyPrint = 1
     GUI_COLUMNSPAN_MyPrint = 1
+    GUI_STICKY_MyPrint = ""
     #################################################
     #################################################
 
@@ -366,13 +375,16 @@ if __name__ == '__main__':
     #################################################
     global EntryListWithBlinking_ReubenPython2and3ClassObject_GUIparametersDict
     EntryListWithBlinking_ReubenPython2and3ClassObject_GUIparametersDict = dict([("root", Tab_EntryListWithBlinking),
-                                    ("UseBorderAroundThisGuiObjectFlag", 0),
+                                    ("UseBorderAroundThisGuiObjectFlag", 1),
                                     ("GUI_ROW", GUI_ROW_EntryListWithBlinking),
                                     ("GUI_COLUMN", GUI_COLUMN_EntryListWithBlinking),
                                     ("GUI_PADX", GUI_PADX_EntryListWithBlinking),
                                     ("GUI_PADY", GUI_PADY_EntryListWithBlinking),
                                     ("GUI_ROWSPAN", GUI_ROWSPAN_EntryListWithBlinking),
-                                    ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_EntryListWithBlinking)])
+                                    ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_EntryListWithBlinking),
+                                    ("GUI_HEIGHT", GUI_HEIGHT_EntryListWithBlinking),
+                                    ("GUI_WIDTH", GUI_WIDTH_EntryListWithBlinking),
+                                    ("GUI_STICKY", GUI_STICKY_EntryListWithBlinking)])
 
     global EntryListWithBlinking_Variables_ListOfDicts
     EntryListWithBlinking_Variables_ListOfDicts = [dict([("Name", "TestIntVariable"),("Type", "int"), ("StartingVal", 0), ("MinVal", -10), ("MaxVal", 10),("EntryBlinkEnabled", 1), ("EntryBlinkInactiveColor", TKinter_DefaultGrayColor), ("EntryBlinkActiveColor", TKinter_LightGreenColor)]),
@@ -384,7 +396,7 @@ if __name__ == '__main__':
                                                                           ("EntryListWithBlinking_Variables_ListOfDicts", EntryListWithBlinking_Variables_ListOfDicts),
                                                                           ("DebugByPrintingVariablesFlag", 0),
                                                                           ("LoseFocusIfMouseLeavesEntryFlag", 0)])
-    if USE_EntryListWithBlinking_FLAG == 1:
+    if USE_EntryListWithBlinking_FLAG == 1 and EXIT_PROGRAM_FLAG == 0:
         try:
             EntryListWithBlinking_ReubenPython2and3ClassObject = EntryListWithBlinking_ReubenPython2and3Class(EntryListWithBlinking_ReubenPython2and3ClassObject_setup_dict)
             EntryListWithBlinking_OPEN_FLAG = EntryListWithBlinking_ReubenPython2and3ClassObject.OBJECT_CREATED_SUCCESSFULLY_FLAG
@@ -396,53 +408,65 @@ if __name__ == '__main__':
     #################################################
     #################################################
 
-    #################################################
-    #################################################
-    if USE_MyPrint_FLAG == 1:
+    ######################################################################################################
+    ######################################################################################################
+    if USE_EntryListWithBlinking_FLAG == 1:
+        if EXIT_PROGRAM_FLAG == 0:
+            if EntryListWithBlinking_OPEN_FLAG != 1:
+                print("Failed to open EntryListWithBlinking_ReubenPython3Class.")
+                ExitProgram_Callback()
+    ######################################################################################################
+    ######################################################################################################
 
-        MyPrint_ReubenPython2and3ClassObject_GUIparametersDict = dict([("USE_GUI_FLAG", USE_GUI_FLAG and SHOW_IN_GUI_MyPrint_FLAG),
-                                                                        ("root", Tab_MyPrint),
-                                                                        ("UseBorderAroundThisGuiObjectFlag", 0),
-                                                                        ("GUI_ROW", GUI_ROW_MyPrint),
-                                                                        ("GUI_COLUMN", GUI_COLUMN_MyPrint),
-                                                                        ("GUI_PADX", GUI_PADX_MyPrint),
-                                                                        ("GUI_PADY", GUI_PADY_MyPrint),
-                                                                        ("GUI_ROWSPAN", GUI_ROWSPAN_MyPrint),
-                                                                        ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_MyPrint)])
+    ######################################################################################################
+    ######################################################################################################
+    global MyPrint_ReubenPython2and3ClassObject_GUIparametersDict
+    MyPrint_ReubenPython2and3ClassObject_GUIparametersDict = dict([("USE_GUI_FLAG", USE_GUI_FLAG and SHOW_IN_GUI_MyPrint_FLAG),
+                                                                    ("root", Tab_MyPrint),
+                                                                    ("UseBorderAroundThisGuiObjectFlag", 0),
+                                                                    ("GUI_ROW", GUI_ROW_MyPrint),
+                                                                    ("GUI_COLUMN", GUI_COLUMN_MyPrint),
+                                                                    ("GUI_PADX", GUI_PADX_MyPrint),
+                                                                    ("GUI_PADY", GUI_PADY_MyPrint),
+                                                                    ("GUI_ROWSPAN", GUI_ROWSPAN_MyPrint),
+                                                                    ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_MyPrint),
+                                                                    ("GUI_STICKY", GUI_STICKY_MyPrint)])
 
-        MyPrint_ReubenPython2and3ClassObject_setup_dict = dict([("NumberOfPrintLines", 10),
-                                                                ("WidthOfPrintingLabel", 200),
-                                                                ("PrintToConsoleFlag", 1),
-                                                                ("LogFileNameFullPath", os.getcwd() + "//TestLog.txt"),
-                                                                ("GUIparametersDict", MyPrint_ReubenPython2and3ClassObject_GUIparametersDict)])
+    global MyPrint_ReubenPython2and3ClassObject_setup_dict
+    MyPrint_ReubenPython2and3ClassObject_setup_dict = dict([("NumberOfPrintLines", 10),
+                                                            ("WidthOfPrintingLabel", 200),
+                                                            ("PrintToConsoleFlag", 1),
+                                                            ("LogFileNameFullPath", os.getcwd() + "//TestLog.txt"),
+                                                            ("GUIparametersDict", MyPrint_ReubenPython2and3ClassObject_GUIparametersDict)])
 
+    if USE_MyPrint_FLAG == 1 and EXIT_PROGRAM_FLAG == 0:
         try:
             MyPrint_ReubenPython2and3ClassObject = MyPrint_ReubenPython2and3Class(MyPrint_ReubenPython2and3ClassObject_setup_dict)
-            time.sleep(0.25)
             MyPrint_OPEN_FLAG = MyPrint_ReubenPython2and3ClassObject.OBJECT_CREATED_SUCCESSFULLY_FLAG
 
         except:
             exceptions = sys.exc_info()[0]
             print("MyPrint_ReubenPython2and3ClassObject __init__: Exceptions: %s" % exceptions)
             traceback.print_exc()
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
-    if USE_EntryListWithBlinking_FLAG == 1 and EntryListWithBlinking_OPEN_FLAG != 1:
-        print("Failed to open EntryListWithBlinking_ReubenPython2and3Class.")
-        ExitProgram_Callback()
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
+    if USE_MyPrint_FLAG == 1:
+        if EXIT_PROGRAM_FLAG == 0:
+            if MyPrint_OPEN_FLAG != 1:
+                print("Failed to open MyPrint_ReubenPython2and3Class.")
+                ExitProgram_Callback()
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
-    if USE_MyPrint_FLAG == 1 and MyPrint_OPEN_FLAG != 1:
-        print("Failed to open MyPrint_ReubenPython2and3ClassObject.")
-        ExitProgram_Callback()
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
+    if USE_Keyboard_FLAG == 1 and EXIT_PROGRAM_FLAG == 0:
+        keyboard.on_press_key("esc", ExitProgram_Callback)
+    ######################################################################################################
+    ######################################################################################################
 
     #################################################
     #################################################

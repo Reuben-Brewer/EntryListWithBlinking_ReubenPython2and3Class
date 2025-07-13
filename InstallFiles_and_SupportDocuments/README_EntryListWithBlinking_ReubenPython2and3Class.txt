@@ -13,21 +13,28 @@ www.reubotics.com
 
 Apache 2 License
 
-Software Revision G, 08/31/2024
+Software Revision I, 07/14/2025
 
-Verified working on: 
-Python 2.7, 3.8.
-Windows 8.1, 10 64-bit
-Raspberry Pi Buster 
+Verified working on:
+
+Python 3.11/13
+
+Windows 10/11 64-bit
+
+Raspberry Pi Bookworm
+
 (no Mac testing yet)
 
 ########################  
 
-########################### Python module installation instructions, all OS's
+######################## Python module installation instructions, all OS's
 
 EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies: ['future.builtins']
+
 EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_TestProgram: ['MyPrint_ReubenPython2and3Class']
+
 EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_NestedLayers: ['future.builtins']
+
 EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_All:['future.builtins', 'MyPrint_ReubenPython2and3Class']
 
-###########################
+########################
