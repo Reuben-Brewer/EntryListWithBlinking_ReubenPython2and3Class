@@ -6,12 +6,20 @@ reuben.brewer@gmail.com
 www.reubotics.com
 
 Apache 2 License
-Software Revision I, 07/14/2025
+Software Revision J, 12/22/2025
 
-Verified working on: Python 3.11/3.12 for Windows 10/11 64-bit and Raspberry Pi Bookworm.
+Verified working on: Python 3.11/12/13 for Windows 10/11 64-bit and Raspberry Pi Bookworm.
 '''
 
 __author__ = 'reuben.brewer'
+
+##########################################################################################################
+##########################################################################################################
+
+#########################################################
+import ReubenGithubCodeModulePaths #Replaces the need to have "ReubenGithubCodeModulePaths.pth" within "C:\Anaconda3\Lib\site-packages".
+ReubenGithubCodeModulePaths.Enable()
+#########################################################
 
 #########################################################
 from EntryListWithBlinking_ReubenPython2and3Class import *
@@ -30,14 +38,9 @@ import keyboard
 #########################################################
 
 #########################################################
-if sys.version_info[0] < 3:
-    from Tkinter import * #Python 2
-    import tkFont
-    import ttk
-else:
-    from tkinter import * #Python 3
-    import tkinter.font as tkFont #Python 3
-    from tkinter import ttk
+from tkinter import *
+import tkinter.font as tkFont
+from tkinter import ttk
 #########################################################
 
 #########################################################
@@ -48,7 +51,10 @@ if platform.system() == "Windows":
     winmm.timeBeginPeriod(1) #Set minimum timer resolution to 1ms so that time.sleep(0.001) behaves properly.
 #########################################################
 
-###########################################################################################################
+##########################################################################################################
+##########################################################################################################
+
+##########################################################################################################
 ##########################################################################################################
 def getPreciseSecondsTimeStampString():
     ts = time.time()
@@ -130,9 +136,19 @@ def GUI_Thread():
     global GUI_RootAfterCallbackInterval_Milliseconds
     global USE_TABS_IN_GUI_FLAG
 
+    global EntryListWithBlinking_ReubenPython2and3ClassObject
+    global EntryListWithBlinking_OPEN_FLAG
+
+    global MyPrint_ReubenPython2and3ClassObject
+    global MyPrint_OPEN_FLAG
+
     ################################################# KEY GUI LINE
     #################################################
     root = Tk()
+
+    root.protocol("WM_DELETE_WINDOW", ExitProgram_Callback)  # Set the callback function for when the window's closed.
+    root.title("test_program_for_EntryListWithBlinking_ReubenPython2and3Class")
+    root.geometry('%dx%d+%d+%d' % (root_width, root_height, root_Xpos, root_Ypos)) # set the dimensions of the screen and where it is placed
     #################################################
     #################################################
 
@@ -179,28 +195,45 @@ def GUI_Thread():
     TestButton.grid(row=0, column=0, padx=1, pady=1)
     #################################################
 
+    #################################################
+    #################################################
+    if EntryListWithBlinking_OPEN_FLAG == 1:
+        EntryListWithBlinking_ReubenPython2and3ClassObject.CreateGUIobjects(TkinterParent=root)
+    #################################################
+    #################################################
+
+    #################################################
+    #################################################
+    if MyPrint_OPEN_FLAG == 1:
+        MyPrint_ReubenPython2and3ClassObject.CreateGUIobjects(TkinterParent=root)
+    #################################################
+    #################################################
+
     ################################################# THIS BLOCK MUST COME 2ND-TO-LAST IN def GUI_Thread() IF USING TABS.
-    root.protocol("WM_DELETE_WINDOW", ExitProgram_Callback)  # Set the callback function for when the window's closed.
-    root.title("test_program_for_EntryListWithBlinking_ReubenPython2and3Class")
-    root.geometry('%dx%d+%d+%d' % (root_width, root_height, root_Xpos, root_Ypos)) # set the dimensions of the screen and where it is placed
+    #################################################
     root.after(GUI_RootAfterCallbackInterval_Milliseconds, GUI_update_clock)
     root.mainloop()
     #################################################
+    #################################################
 
     #################################################  THIS BLOCK MUST COME LAST IN def GUI_Thread() REGARDLESS OF CODE.
+    #################################################
     root.quit() #Stop the GUI thread, MUST BE CALLED FROM GUI_Thread
     root.destroy() #Close down the GUI thread, MUST BE CALLED FROM GUI_Thread
+    #################################################
     #################################################
 
 ##########################################################################################################
 ##########################################################################################################
 
+##########################################################################################################
+##########################################################################################################
 ##########################################################################################################
 ##########################################################################################################
 if __name__ == '__main__':
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global my_platform
 
     if platform.system() == "Linux":
@@ -220,11 +253,11 @@ if __name__ == '__main__':
         my_platform = "other"
 
     print("The OS platform is: " + my_platform)
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global USE_GUI_FLAG
     USE_GUI_FLAG = 1
 
@@ -239,21 +272,21 @@ if __name__ == '__main__':
     
     global USE_Keyboard_FLAG
     USE_Keyboard_FLAG = 1
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global SHOW_IN_GUI_EntryListWithBlinking_FLAG
     SHOW_IN_GUI_EntryListWithBlinking_FLAG = 1
 
     global SHOW_IN_GUI_MyPrint_FLAG
     SHOW_IN_GUI_MyPrint_FLAG = 1
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global GUI_ROW_EntryListWithBlinking
     global GUI_COLUMN_EntryListWithBlinking
     global GUI_PADX_EntryListWithBlinking
@@ -285,11 +318,11 @@ if __name__ == '__main__':
     GUI_ROWSPAN_MyPrint = 1
     GUI_COLUMNSPAN_MyPrint = 1
     GUI_STICKY_MyPrint = ""
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global EXIT_PROGRAM_FLAG
     EXIT_PROGRAM_FLAG = 0
 
@@ -325,11 +358,11 @@ if __name__ == '__main__':
     TKinter_LightRedColor = '#%02x%02x%02x' % (255, 150, 150) #RGB
     TKinter_LightYellowColor = '#%02x%02x%02x' % (255, 255, 150) #RGB
     TKinter_DefaultGrayColor = '#%02x%02x%02x' % (240, 240, 240) #RGB
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global EntryListWithBlinking_ReubenPython2and3ClassObject
 
     global EntryListWithBlinking_OPEN_FLAG
@@ -343,48 +376,34 @@ if __name__ == '__main__':
 
     global EntryListWithBlinking_MostRecentDict_DataUpdateNumber_last
     EntryListWithBlinking_MostRecentDict_DataUpdateNumber_last = -1
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
     global MyPrint_ReubenPython2and3ClassObject
 
     global MyPrint_OPEN_FLAG
     MyPrint_OPEN_FLAG = -1
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
-    #################################################  KEY GUI LINE
-    #################################################
-    if USE_GUI_FLAG == 1:
-        print("Starting GUI thread...")
-        GUI_Thread_ThreadingObject = threading.Thread(target=GUI_Thread)
-        GUI_Thread_ThreadingObject.setDaemon(True) #Should mean that the GUI thread is destroyed automatically when the main thread is destroyed.
-        GUI_Thread_ThreadingObject.start()
-        time.sleep(0.5)  #Allow enough time for 'root' to be created that we can then pass it into other classes.
-    else:
-        root = None
-        Tab_MainControls = None
-        Tab_EntryListWithBlinking = None
-        Tab_MyPrint = None
-    #################################################
-    #################################################
+    ######################################################################################################
+    ######################################################################################################
 
     #################################################
     #################################################
     global EntryListWithBlinking_ReubenPython2and3ClassObject_GUIparametersDict
-    EntryListWithBlinking_ReubenPython2and3ClassObject_GUIparametersDict = dict([("root", Tab_EntryListWithBlinking),
-                                    ("UseBorderAroundThisGuiObjectFlag", 1),
-                                    ("GUI_ROW", GUI_ROW_EntryListWithBlinking),
-                                    ("GUI_COLUMN", GUI_COLUMN_EntryListWithBlinking),
-                                    ("GUI_PADX", GUI_PADX_EntryListWithBlinking),
-                                    ("GUI_PADY", GUI_PADY_EntryListWithBlinking),
-                                    ("GUI_ROWSPAN", GUI_ROWSPAN_EntryListWithBlinking),
-                                    ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_EntryListWithBlinking),
-                                    ("GUI_HEIGHT", GUI_HEIGHT_EntryListWithBlinking),
-                                    ("GUI_WIDTH", GUI_WIDTH_EntryListWithBlinking),
-                                    ("GUI_STICKY", GUI_STICKY_EntryListWithBlinking)])
+    EntryListWithBlinking_ReubenPython2and3ClassObject_GUIparametersDict = dict([("UseBorderAroundThisGuiObjectFlag", 1),
+                                                                                ("GUI_ROW", GUI_ROW_EntryListWithBlinking),
+                                                                                ("GUI_COLUMN", GUI_COLUMN_EntryListWithBlinking),
+                                                                                ("GUI_PADX", GUI_PADX_EntryListWithBlinking),
+                                                                                ("GUI_PADY", GUI_PADY_EntryListWithBlinking),
+                                                                                ("GUI_ROWSPAN", GUI_ROWSPAN_EntryListWithBlinking),
+                                                                                ("GUI_COLUMNSPAN", GUI_COLUMNSPAN_EntryListWithBlinking),
+                                                                                ("GUI_HEIGHT", GUI_HEIGHT_EntryListWithBlinking),
+                                                                                ("GUI_WIDTH", GUI_WIDTH_EntryListWithBlinking),
+                                                                                ("GUI_STICKY", GUI_STICKY_EntryListWithBlinking)])
 
     global EntryListWithBlinking_Variables_ListOfDicts
     EntryListWithBlinking_Variables_ListOfDicts = [dict([("Name", "TestIntVariable"),("Type", "int"), ("StartingVal", 0), ("MinVal", -10), ("MaxVal", 10),("EntryBlinkEnabled", 1), ("EntryBlinkInactiveColor", TKinter_DefaultGrayColor), ("EntryBlinkActiveColor", TKinter_LightGreenColor)]),
@@ -408,21 +427,26 @@ if __name__ == '__main__':
     #################################################
     #################################################
 
-    ######################################################################################################
-    ######################################################################################################
+    #################################################
+    #################################################
     if USE_EntryListWithBlinking_FLAG == 1:
         if EXIT_PROGRAM_FLAG == 0:
             if EntryListWithBlinking_OPEN_FLAG != 1:
                 print("Failed to open EntryListWithBlinking_ReubenPython3Class.")
                 ExitProgram_Callback()
+    #################################################
+    #################################################
+
     ######################################################################################################
     ######################################################################################################
 
     ######################################################################################################
     ######################################################################################################
+
+    #################################################
+    #################################################
     global MyPrint_ReubenPython2and3ClassObject_GUIparametersDict
     MyPrint_ReubenPython2and3ClassObject_GUIparametersDict = dict([("USE_GUI_FLAG", USE_GUI_FLAG and SHOW_IN_GUI_MyPrint_FLAG),
-                                                                    ("root", Tab_MyPrint),
                                                                     ("UseBorderAroundThisGuiObjectFlag", 0),
                                                                     ("GUI_ROW", GUI_ROW_MyPrint),
                                                                     ("GUI_COLUMN", GUI_COLUMN_MyPrint),
@@ -448,16 +472,19 @@ if __name__ == '__main__':
             exceptions = sys.exc_info()[0]
             print("MyPrint_ReubenPython2and3ClassObject __init__: Exceptions: %s" % exceptions)
             traceback.print_exc()
-    ######################################################################################################
-    ######################################################################################################
+    #################################################
+    #################################################
 
-    ######################################################################################################
-    ######################################################################################################
+    #################################################
+    #################################################
     if USE_MyPrint_FLAG == 1:
         if EXIT_PROGRAM_FLAG == 0:
             if MyPrint_OPEN_FLAG != 1:
                 print("Failed to open MyPrint_ReubenPython2and3Class.")
                 ExitProgram_Callback()
+    #################################################
+    #################################################
+
     ######################################################################################################
     ######################################################################################################
 
@@ -468,8 +495,22 @@ if __name__ == '__main__':
     ######################################################################################################
     ######################################################################################################
 
-    #################################################
-    #################################################
+    ########################################################################################################## KEY GUI LINE
+    ##########################################################################################################
+    if USE_GUI_FLAG == 1:
+        print("Starting GUI thread...")
+        GUI_Thread_ThreadingObject = threading.Thread(target=GUI_Thread, daemon=True) #Daemon=True means that the GUI thread is destroyed automatically when the main thread is destroyed.
+        GUI_Thread_ThreadingObject.start()
+    else:
+        root = None
+        Tab_MainControls = None
+        Tab_EntryListWithBlinking = None
+        Tab_MyPrint = None
+    ##########################################################################################################
+    ##########################################################################################################
+
+    ##########################################################################################################
+    ##########################################################################################################
     #EntryListWithBlinking_ReubenPython2and3ClassObject.SetEntryEnabledState("TestIntVariable", 0)
 
     print("Starting main loop 'test_program_for_EntryListWithBlinking_ReubenPython2and3Class.")
@@ -478,11 +519,11 @@ if __name__ == '__main__':
     ToggleVar = 0
     while(EXIT_PROGRAM_FLAG == 0):
 
-        ###################################################
+        ##########################################################################################################
         CurrentTime_MainLoopThread = getPreciseSecondsTimeStampString() - StartingTime_MainLoopThread
-        ###################################################
+        ##########################################################################################################
 
-        ################################################### GET's
+        ########################################################################################################## GET's
         if EntryListWithBlinking_OPEN_FLAG == 1:
 
             EntryListWithBlinking_MostRecentDict = EntryListWithBlinking_ReubenPython2and3ClassObject.GetMostRecentDataDict()
@@ -492,9 +533,9 @@ if __name__ == '__main__':
 
                 print("EntryListWithBlinking_MostRecentDict: " + str(EntryListWithBlinking_MostRecentDict))
                 #print("DataUpdateNumber = " + str(EntryListWithBlinking_MostRecentDict_DataUpdateNumber) + ", EntryListWithBlinking_MostRecentDict: " + str(EntryListWithBlinking_MostRecentDict))
-        ###################################################
+        ##########################################################################################################
 
-        ################################################### SET's
+        ########################################################################################################## SET's
         if EntryListWithBlinking_OPEN_FLAG == 1:
 
             if "DataUpdateNumber" in EntryListWithBlinking_MostRecentDict and EntryListWithBlinking_MostRecentDict["DataUpdateNumber"] != EntryListWithBlinking_MostRecentDict_DataUpdateNumber_last:
@@ -511,32 +552,37 @@ if __name__ == '__main__':
                 else:
                     ToggleVar = 0
                 '''
-        ###################################################
+        ##########################################################################################################
 
-        ###################################################
+        ##########################################################################################################
         EntryListWithBlinking_MostRecentDict_DataUpdateNumber_last = EntryListWithBlinking_MostRecentDict_DataUpdateNumber
-        ###################################################
+        ##########################################################################################################
 
+        ##########################################################################################################
         time.sleep(0.1)
-    #################################################
-    #################################################
+        ##########################################################################################################
 
-    ################################################# THIS IS THE EXIT ROUTINE!
-    #################################################
+    ##########################################################################################################
+    ##########################################################################################################
+
+    ########################################################################################################## THIS IS THE EXIT ROUTINE!
+    ##########################################################################################################
     print("Exiting main program 'test_program_for_EntryListWithBlinking_ReubenPython2and3Class.")
 
-    #################################################
+    ##########################################################################################################
     if EntryListWithBlinking_OPEN_FLAG == 1:
         EntryListWithBlinking_ReubenPython2and3ClassObject.ExitProgram_Callback()
-    #################################################
+    ##########################################################################################################
 
-    #################################################
+    ##########################################################################################################
     if MyPrint_OPEN_FLAG == 1:
         MyPrint_ReubenPython2and3ClassObject.ExitProgram_Callback()
-    #################################################
+    ##########################################################################################################
 
-    #################################################
-    #################################################
+    ##########################################################################################################
+    ##########################################################################################################
 
+##########################################################################################################
+##########################################################################################################
 ##########################################################################################################
 ##########################################################################################################
