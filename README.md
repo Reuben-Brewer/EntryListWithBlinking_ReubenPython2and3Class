@@ -13,11 +13,11 @@ www.reubotics.com
 
 Apache 2 License
 
-Software Revision I, 07/14/2025
+Software Revision J, 12/22/2025
 
 Verified working on:
 
-Python 3.11/13
+Python 3.11/12/13
 
 Windows 10/11 64-bit
 
@@ -29,12 +29,12 @@ Raspberry Pi Bookworm
 
 ######################## Python module installation instructions, all OS's
 
-EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies: ['future.builtins']
+EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies: []
 
-EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_TestProgram: ['MyPrint_ReubenPython2and3Class']
+EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_TestProgram: ['keyboard', 'MyPrint_ReubenPython2and3Class', 'ReubenGithubCodeModulePaths']
 
-EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_NestedLayers: ['future.builtins']
+EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_NestedLayers: []
 
-EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_All:['future.builtins', 'MyPrint_ReubenPython2and3Class']
+EntryListWithBlinking_ReubenPython2and3Class, ListOfModuleDependencies_All:['keyboard', 'MyPrint_ReubenPython2and3Class', 'ReubenGithubCodeModulePaths']
 
 ########################
